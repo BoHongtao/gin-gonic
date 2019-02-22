@@ -47,64 +47,6 @@
    __construct() __destruct()  __autoload()
    __call()   __tostring()
 
-
-
-
-
-## 17、说下php中的多态？ ##
-   php中的多态是指相同的操作或者函数，可作用多种不同类型的对象上并获得不同的结果，即一个对外接口，多个内部方法
-## 18、redis如何持久化？ ##
-   snapshotting（保存数据），append-only-file（保存操作）
-## 19、如何跨域？ ##
-   jsonp方式，type：get, dataType：jsonp , 后端指定header，接收callback的名并调用
-## 20、攻击方式及防范？ ##
-   XSS,CSRF，DDOS（购买防护，封IP）
-## 21、数据库索引？ ##
-   innodb ：并发好，行锁,插入速度慢，支持外键；存储为2个文件：表结构+数据,索引
-   mysiam ：并发差，表锁，不支持事务，支持压缩（需要重建索引），适合频繁读取写入的系统；存储为3个文件：表结构，表数据，索引
-   Memory ：容易丢失，速度最快
-## 22、数据库优化策略？ ##
-1.    优化索引和存储引擎，sql语句，开启慢查询日志分析sql
-1.    大量查询的可做缓存和页面静态化
-1.    配置主从集群，读写分离
-1.    整理数据碎片
-1.    换个好点的服务器，最后分区分表(很麻烦)，实在不行就别用mysql，换用ES（分布式存储）
-## 23、如何使用索引？  ##
-1.    列独立，查询的不参与运算
-1.    like左侧不要有通配符
-1.    使用or，要求参与or运算的两边的字段都存在索引
-1.    把用到最频繁的字段放最左边（复合索引）
-1.    查询数据不要超过20%，否则自动放弃使用索引
-## 24、php的运行模式？ ##
-1.    web模块运行
-1.    cgi运行
-1.    cli模式运行
-1.    fast-cgi运行
-## 25、session  & cookies的缺点？ ##
-   session过度使用不好维护，依赖cookies，服务器重启数据丢失
-   cookies容量小，不安全，易盗用
-## 26、session如何共享？ ##
-   redis or memchche 共享
-   集群：1，组播方式  2，存储介质（设备）  3，完全用cookies（推荐）
-## 27、mysql主从分布式数据库数据同步的原理？ ##
-   二进制日志文件的读取
-## 28、计划任务？ ##
-   crontab -e
-## 29、开发中用到的php设计模式？ ##
-   单例模式，工厂模式，适配器模式
-## 30、加密接口的实现？ ##
-   访问之前加密，调用解密，比如解密结果
-## 31、如何防盗链？ ##
-   确定来源Referer
-## 32、魔术方法？ ##
-   __construct() __destruct()  __autoload()
-   __call()   __tostring()
-
-
-
-
-
-
 ## 33、说出linux中的常用的15个指令 ##
 1.    ls cp rm mv cd init su pwd touch mkdir useradd usermod userdel groupadd groupmod groupdel
 1.    目录切换指令ls cd pwd
