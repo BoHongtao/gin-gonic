@@ -50,7 +50,6 @@
 ## 33、说出linux中的常用的15个指令 ##
 1.    ls cp rm mv cd init su pwd touch mkdir useradd usermod userdel groupadd groupmod groupdel
 1.    目录切换指令ls cd pwd
-1.     init 
 1.    用户切换su
 1.    文件操作：touch  cp  mv  rm
 1.    文件夹操作：mkdir  cp -r  mv  rm -rf
