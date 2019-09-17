@@ -5,9 +5,9 @@ import (
 )
 
 type User struct {
-	Id int `json:"id" from "id"`
+	Id       int    `json:"id" from "id"`
 	UserName string `json:"username from "username"`
-	PassWd string `json:"passwd" from "passwd"`
+	PassWd   string `json:"passwd" from "passwd"`
 }
 
 //select
@@ -26,5 +26,11 @@ func (u *User) GetUserInfo() (users []User, err error) {
 	if err = rows.Err(); err != nil {
 		return
 	}
+	return
+}
+
+//select by id
+func (u *User) GetUserInfoById() (users []User, err error) {
+	SqlDB.QueryRow("select id, username, passwd from user where id = ?", u.Id).Scan(&u.Id, &u.UserName, &u.PassWd)
 	return
 }

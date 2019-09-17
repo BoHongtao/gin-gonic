@@ -8,6 +8,7 @@ import (
 func initRouter() *gin.Engine {
 	router := gin.Default()
 	router.GET("/", IndexApi)
-	router.GET("/all", GetAll)
+	router.GET("/getAllUser", GetAll)
+	router.GET("/getById/:id", GetUserById)
 	return router
 }
