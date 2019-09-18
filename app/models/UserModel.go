@@ -20,7 +20,7 @@ func (u *User) GetUserInfo() (users []User, err error) {
 	}
 	for rows.Next() {
 		var user User
-		rows.Scan(&user.Id, &user.UserName, &user.PassWd)
+		_ = rows.Scan(&user.Id, &user.UserName, &user.PassWd)
 		users = append(users, user)
 	}
 	if err = rows.Err(); err != nil {
@@ -31,6 +31,16 @@ func (u *User) GetUserInfo() (users []User, err error) {
 
 //select by id
 func (u *User) GetUserInfoById() (users []User, err error) {
-	SqlDB.QueryRow("select id, username, passwd from user where id = ?", u.Id).Scan(&u.Id, &u.UserName, &u.PassWd)
+	_ = SqlDB.QueryRow("select id, username, passwd from user where id = ?", u.Id).Scan(&u.Id, &u.UserName, &u.PassWd)
 	return
+}
+
+//add a user
+func (u *User) AddUser() (lastId int64, err error) {
+	rs, err := SqlDB.Exec("INSERT INTO user(id,username,passwd) VALUES (0,?,?)", u.UserName, u.PassWd)
+	if err != nil {
+		return
+	}
+	lastId, err = rs.LastInsertId()
+	return lastId, err
 }

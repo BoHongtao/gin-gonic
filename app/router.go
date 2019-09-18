@@ -10,5 +10,6 @@ func initRouter() *gin.Engine {
 	router.GET("/", IndexApi)
 	router.GET("/getAllUser", GetAll)
 	router.GET("/getById/:id", GetUserById)
+	router.GET("/add", AddUser)
 	return router
 }
