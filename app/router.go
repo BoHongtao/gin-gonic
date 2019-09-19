@@ -12,5 +12,6 @@ func initRouter() *gin.Engine {
 	router.GET("/getById/:id", GetUserById)
 	router.POST("/add", AddUser)
 	router.POST("/update", UpdateUser)
+	router.POST("/del", DelUser)
 	return router
 }

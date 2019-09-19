@@ -2,6 +2,7 @@ package apis
 
 import (
 	. "../../../app/models"
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"log"
 	"net/http"
@@ -57,17 +58,46 @@ func AddUser(context *gin.Context) {
 }
 
 func UpdateUser(context *gin.Context) {
+	id, _ := strconv.Atoi(context.Request.FormValue("id"))
 	username := context.Request.FormValue("username")
 	passwd := context.Request.FormValue("passwd")
-	id, _ := strconv.Atoi(context.Request.FormValue("id"))
-	u := User{Id: id, UserName: username, PassWd: passwd}
-	flag, err := u.UpdateUser()
-	if flag != true {
-		log.Fatalln(err)
-		return
+	u := User{Id: id}
+	u.GetUserInfoById()
+	if u.Id > 0 {
+		u.UserName = username
+		u.PassWd = passwd
+		ra, err := u.UpdateUser()
+		if err != nil {
+			log.Fatalln(err)
+		}
+		msg := fmt.Sprintf("update success %d", ra)
+		context.JSON(http.StatusOK, gin.H{
+			"data": true,
+			"msg":  msg,
+		})
+	} else {
+		context.JSON(http.StatusOK, gin.H{
+			"data": nil,
+			"msg":  "not found",
+		})
+
 	}
-	context.JSON(http.StatusOK, gin.H{
-		"data": flag,
-		"msg":  "Update success",
-	})
+}
+
+func DelUser(context *gin.Context) {
+	id, _ := strconv.Atoi(context.Request.FormValue("id"))
+	u := User{Id: id}
+	u.GetUserInfoById()
+	if u.Id > 0 {
+		rs, _err := u.DelUser()
+		if _err != nil {
+			log.Fatalln(_err)
+		}
+		msg := fmt.Sprintf("delete success %d", rs)
+		context.JSON(http.StatusOK, gin.H{
+			"data": true,
+			"msg":  msg,
+		})
+
+	}
 }

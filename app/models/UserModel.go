@@ -46,12 +46,21 @@ func (u *User) AddUser() (lastId int64, err error) {
 }
 
 //update a user
-func (u *User) UpdateUser() (flag bool, err error) {
-	_, err = SqlDB.Exec("UPDATE user set username = ? , passwd = ? where id = ?", u.UserName, u.PassWd, u.Id)
-	flag = true
+func (u *User) UpdateUser() (effect_num int64, err error) {
+	rs, err := SqlDB.Exec("UPDATE user set username = ? , passwd = ? where id = ?", u.UserName, u.PassWd, u.Id)
 	if err != nil {
-		flag = false
 		return
 	}
-	return flag, err
+	effect_num, err = rs.RowsAffected()
+	return effect_num, err
+}
+
+//del a user
+func (u *User) DelUser() (effort_num int64, err error) {
+	rs, err := SqlDB.Exec("DELETE FROM user where id= ?", u.Id)
+	if err != nil {
+		return
+	}
+	effort_num, err = rs.RowsAffected()
+	return
 }
