@@ -55,3 +55,19 @@ func AddUser(context *gin.Context) {
 		"msg":  "Insert success",
 	})
 }
+
+func UpdateUser(context *gin.Context) {
+	username := context.Request.FormValue("username")
+	passwd := context.Request.FormValue("passwd")
+	id, _ := strconv.Atoi(context.Request.FormValue("id"))
+	u := User{Id: id, UserName: username, PassWd: passwd}
+	flag, err := u.UpdateUser()
+	if flag != true {
+		log.Fatalln(err)
+		return
+	}
+	context.JSON(http.StatusOK, gin.H{
+		"data": flag,
+		"msg":  "Update success",
+	})
+}

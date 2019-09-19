@@ -6,7 +6,7 @@ import (
 
 type User struct {
 	Id       int    `json:"id" from "id"`
-	UserName string `json:"username from "username"`
+	UserName string `json:"username" from "username"`
 	PassWd   string `json:"passwd" from "passwd"`
 }
 
@@ -43,4 +43,15 @@ func (u *User) AddUser() (lastId int64, err error) {
 	}
 	lastId, err = rs.LastInsertId()
 	return lastId, err
+}
+
+//update a user
+func (u *User) UpdateUser() (flag bool, err error) {
+	_, err = SqlDB.Exec("UPDATE user set username = ? , passwd = ? where id = ?", u.UserName, u.PassWd, u.Id)
+	flag = true
+	if err != nil {
+		flag = false
+		return
+	}
+	return flag, err
 }
